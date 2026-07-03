@@ -87,5 +87,36 @@
     "admin": "Admin",
     "agent": "Agent",
     "viewer": "Viewer"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Everything in one place — your account and your workspace. Pick a section to manage it.",
+    "sections": {
+      "overview": "Overview",
+      "profile": "Your profile",
+      "security": "Login & security",
+      "appearance": "Appearance",
+      "whatsapp": "WhatsApp",
+      "templates": "Templates",
+      "fields": "Fields & tags",
+      "deals": "Deals & currency",
+      "members": "Team members",
+      "api": "API keys"
+    },
+    "rail": {
+      "ariaLabel": "Settings sections",
+      "group": {
+        "account": "Account",
+        "workspace": "Workspace"
+      }
+    },
+    "security": {
+      "title": "Login & security",
+      "description": "Change your password and sign out of your devices. These keep your account safe."
+    },
+    "fields": {
+      "title": "Fields & tags",
+      "description": "Two ways to organize contacts: colour-coded tags for quick grouping, and custom fields for structured data."
+    }
   }
 }

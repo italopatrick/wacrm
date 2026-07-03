@@ -87,5 +87,36 @@
     "admin": "Administrador",
     "agent": "Agente",
     "viewer": "Visor"
+  },
+  "settings": {
+    "title": "Configuración",
+    "subtitle": "Todo en un solo lugar: tu cuenta y tu espacio de trabajo. Elige una sección para gestionarla.",
+    "sections": {
+      "overview": "Resumen",
+      "profile": "Tu perfil",
+      "security": "Inicio de sesión y seguridad",
+      "appearance": "Apariencia",
+      "whatsapp": "WhatsApp",
+      "templates": "Plantillas",
+      "fields": "Campos y etiquetas",
+      "deals": "Negocios y moneda",
+      "members": "Miembros del equipo",
+      "api": "Claves de API"
+    },
+    "rail": {
+      "ariaLabel": "Secciones de configuración",
+      "group": {
+        "account": "Cuenta",
+        "workspace": "Espacio de trabajo"
+      }
+    },
+    "security": {
+      "title": "Inicio de sesión y seguridad",
+      "description": "Cambia tu contraseña y cierra sesión en tus dispositivos. Esto mantiene tu cuenta segura."
+    },
+    "fields": {
+      "title": "Campos y etiquetas",
+      "description": "Dos formas de organizar contactos: etiquetas de colores para agrupar rápidamente y campos personalizados para datos estructurados."
+    }
   }
 }
