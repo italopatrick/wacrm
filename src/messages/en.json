@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "loading": "Loading…",
+    "search": "Search"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "titleInvite": "Sign in to accept",
+      "subtitle": "Sign in to your account",
+      "subtitleInvite": "Sign in and we'll take you to the invitation.",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create account"
+    },
+    "signup": {
+      "title": "Create account",
+      "titleInvite": "Create account & join",
+      "subtitle": "Get started with CRM Template for WhatsApp",
+      "subtitleInvite": "Verify your email, then accept the invitation to join your team.",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "John Doe",
+      "email": "Email",
+      "password": "Password",
+      "passwordPlaceholder": "At least 6 characters",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Repeat your password",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "errorMismatch": "Passwords do not match",
+      "errorTooShort": "Password must be at least 6 characters",
+      "checkEmailTitle": "Check your email",
+      "checkEmailBody": "We've sent a confirmation link to <highlight>{email}</highlight>. Please check your inbox and click the link to verify your account.",
+      "backToSignIn": "Back to sign in"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your email and we'll send you a reset link",
+      "email": "Email",
+      "submit": "Send reset link",
+      "submitting": "Sending…",
+      "checkEmailTitle": "Check your email",
+      "checkEmailBody": "We've sent a password reset link to <highlight>{email}</highlight>. Please check your inbox.",
+      "backToSignIn": "Back to sign in"
+    }
+  }
+}

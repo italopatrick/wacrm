@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "loading": "Cargando…",
+    "search": "Buscar"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "titleInvite": "Inicia sesión para aceptar",
+      "subtitle": "Inicia sesión en tu cuenta",
+      "subtitleInvite": "Inicia sesión y te llevaremos a la invitación.",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "passwordPlaceholder": "Introduce tu contraseña",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión…",
+      "noAccount": "¿No tienes una cuenta?",
+      "createAccount": "Crear cuenta"
+    },
+    "signup": {
+      "title": "Crear cuenta",
+      "titleInvite": "Crear cuenta y unirse",
+      "subtitle": "Empieza con CRM Template para WhatsApp",
+      "subtitleInvite": "Verifica tu correo y acepta la invitación para unirte a tu equipo.",
+      "fullName": "Nombre completo",
+      "fullNamePlaceholder": "Juan Pérez",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Al menos 6 caracteres",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Repite tu contraseña",
+      "submit": "Crear cuenta",
+      "submitting": "Creando cuenta…",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Iniciar sesión",
+      "errorMismatch": "Las contraseñas no coinciden",
+      "errorTooShort": "La contraseña debe tener al menos 6 caracteres",
+      "checkEmailTitle": "Revisa tu correo",
+      "checkEmailBody": "Enviamos un enlace de confirmación a <highlight>{email}</highlight>. Revisa tu bandeja de entrada y haz clic en el enlace para verificar tu cuenta.",
+      "backToSignIn": "Volver a iniciar sesión"
+    },
+    "forgotPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Introduce tu correo y te enviaremos un enlace de restablecimiento",
+      "email": "Correo electrónico",
+      "submit": "Enviar enlace de restablecimiento",
+      "submitting": "Enviando…",
+      "checkEmailTitle": "Revisa tu correo",
+      "checkEmailBody": "Enviamos un enlace para restablecer la contraseña a <highlight>{email}</highlight>. Revisa tu bandeja de entrada.",
+      "backToSignIn": "Volver a iniciar sesión"
+    }
+  }
+}

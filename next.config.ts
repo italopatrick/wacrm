@@ -1,4 +1,9 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+// Points next-intl at our request config (locale detection + catalog
+// loading). Must wrap the exported config below.
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 /**
  * Baseline security headers applied to every response.
@@ -136,4 +141,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

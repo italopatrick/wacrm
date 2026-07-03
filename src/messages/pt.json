@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "close": "Fechar",
+    "loading": "Carregando…",
+    "search": "Buscar"
+  },
+  "auth": {
+    "login": {
+      "title": "Bem-vindo de volta",
+      "titleInvite": "Entre para aceitar",
+      "subtitle": "Entre na sua conta",
+      "subtitleInvite": "Entre e levaremos você ao convite.",
+      "email": "E-mail",
+      "password": "Senha",
+      "forgotPassword": "Esqueceu a senha?",
+      "passwordPlaceholder": "Digite sua senha",
+      "submit": "Entrar",
+      "submitting": "Entrando…",
+      "noAccount": "Não tem uma conta?",
+      "createAccount": "Criar conta"
+    },
+    "signup": {
+      "title": "Criar conta",
+      "titleInvite": "Criar conta e entrar",
+      "subtitle": "Comece a usar o CRM Template para WhatsApp",
+      "subtitleInvite": "Verifique seu e-mail e aceite o convite para entrar na equipe.",
+      "fullName": "Nome completo",
+      "fullNamePlaceholder": "João da Silva",
+      "email": "E-mail",
+      "password": "Senha",
+      "passwordPlaceholder": "Pelo menos 6 caracteres",
+      "confirmPassword": "Confirmar senha",
+      "confirmPasswordPlaceholder": "Repita sua senha",
+      "submit": "Criar conta",
+      "submitting": "Criando conta…",
+      "haveAccount": "Já tem uma conta?",
+      "signIn": "Entrar",
+      "errorMismatch": "As senhas não coincidem",
+      "errorTooShort": "A senha deve ter pelo menos 6 caracteres",
+      "checkEmailTitle": "Verifique seu e-mail",
+      "checkEmailBody": "Enviamos um link de confirmação para <highlight>{email}</highlight>. Verifique sua caixa de entrada e clique no link para confirmar sua conta.",
+      "backToSignIn": "Voltar para o login"
+    },
+    "forgotPassword": {
+      "title": "Redefinir senha",
+      "subtitle": "Digite seu e-mail e enviaremos um link de redefinição",
+      "email": "E-mail",
+      "submit": "Enviar link de redefinição",
+      "submitting": "Enviando…",
+      "checkEmailTitle": "Verifique seu e-mail",
+      "checkEmailBody": "Enviamos um link de redefinição de senha para <highlight>{email}</highlight>. Verifique sua caixa de entrada.",
+      "backToSignIn": "Voltar para o login"
+    }
+  }
+}
