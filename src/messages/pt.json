@@ -55,5 +55,37 @@
       "checkEmailBody": "Enviamos um link de redefinição de senha para <highlight>{email}</highlight>. Verifique sua caixa de entrada.",
       "backToSignIn": "Voltar para o login"
     }
+  },
+  "nav": {
+    "dashboard": "Painel",
+    "inbox": "Caixa de entrada",
+    "notifications": "Notificações",
+    "contacts": "Contatos",
+    "pipelines": "Funis",
+    "broadcasts": "Transmissões",
+    "automations": "Automações",
+    "flows": "Fluxos",
+    "agents": "Agentes de IA",
+    "settings": "Configurações",
+    "profile": "Perfil",
+    "signOut": "Sair",
+    "beta": "Beta",
+    "betaFeature": "Recurso beta",
+    "primary": "Principal",
+    "closeMenu": "Fechar menu",
+    "openMenu": "Abrir menu",
+    "openAccountMenu": "Abrir menu da conta",
+    "avatar": "Avatar",
+    "user": "Usuário",
+    "unreadConversations": "{count, plural, one {# conversa não lida} other {# conversas não lidas}}",
+    "unreadNotifications": "{count, plural, one {# notificação não lida} other {# notificações não lidas}}",
+    "switchToLight": "Mudar para o modo claro",
+    "switchToDark": "Mudar para o modo escuro"
+  },
+  "roles": {
+    "owner": "Proprietário",
+    "admin": "Administrador",
+    "agent": "Agente",
+    "viewer": "Visualizador"
   }
 }

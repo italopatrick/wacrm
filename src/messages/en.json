@@ -55,5 +55,37 @@
       "checkEmailBody": "We've sent a password reset link to <highlight>{email}</highlight>. Please check your inbox.",
       "backToSignIn": "Back to sign in"
     }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "inbox": "Inbox",
+    "notifications": "Notifications",
+    "contacts": "Contacts",
+    "pipelines": "Pipelines",
+    "broadcasts": "Broadcasts",
+    "automations": "Automations",
+    "flows": "Flows",
+    "agents": "AI Agents",
+    "settings": "Settings",
+    "profile": "Profile",
+    "signOut": "Sign out",
+    "beta": "Beta",
+    "betaFeature": "Beta feature",
+    "primary": "Primary",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "openAccountMenu": "Open account menu",
+    "avatar": "Avatar",
+    "user": "User",
+    "unreadConversations": "{count, plural, one {# unread conversation} other {# unread conversations}}",
+    "unreadNotifications": "{count, plural, one {# unread notification} other {# unread notifications}}",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "agent": "Agent",
+    "viewer": "Viewer"
   }
 }

@@ -55,5 +55,37 @@
       "checkEmailBody": "Enviamos un enlace para restablecer la contraseña a <highlight>{email}</highlight>. Revisa tu bandeja de entrada.",
       "backToSignIn": "Volver a iniciar sesión"
     }
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "inbox": "Bandeja de entrada",
+    "notifications": "Notificaciones",
+    "contacts": "Contactos",
+    "pipelines": "Embudos",
+    "broadcasts": "Difusiones",
+    "automations": "Automatizaciones",
+    "flows": "Flujos",
+    "agents": "Agentes de IA",
+    "settings": "Configuración",
+    "profile": "Perfil",
+    "signOut": "Cerrar sesión",
+    "beta": "Beta",
+    "betaFeature": "Función beta",
+    "primary": "Principal",
+    "closeMenu": "Cerrar menú",
+    "openMenu": "Abrir menú",
+    "openAccountMenu": "Abrir menú de cuenta",
+    "avatar": "Avatar",
+    "user": "Usuario",
+    "unreadConversations": "{count, plural, one {# conversación sin leer} other {# conversaciones sin leer}}",
+    "unreadNotifications": "{count, plural, one {# notificación sin leer} other {# notificaciones sin leer}}",
+    "switchToLight": "Cambiar al modo claro",
+    "switchToDark": "Cambiar al modo oscuro"
+  },
+  "roles": {
+    "owner": "Propietario",
+    "admin": "Administrador",
+    "agent": "Agente",
+    "viewer": "Visor"
   }
 }
