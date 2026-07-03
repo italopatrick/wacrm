@@ -62,6 +62,17 @@ const SECURITY_HEADERS = [
 
 const nextConfig: NextConfig = {
   /**
+   * Standalone output for containerised deploys (Docker / EasyPanel).
+   *
+   * Emits `.next/standalone/` with a self-contained `server.js` and
+   * only the node_modules actually reached at runtime — the Docker
+   * image copies that instead of the full dependency tree, so the
+   * final image stays small and boots with `node server.js` (no
+   * `next start`, no dev deps present).
+   */
+  output: "standalone",
+
+  /**
    * Cache-Control policy.
    *
    * Why this exists:
