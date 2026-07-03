@@ -90,6 +90,12 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    // `api/health` is excluded so the container liveness probe stays
+    // dependency-free: the middleware calls supabase.auth.getUser(),
+    // which would make /api/health 500 whenever Supabase env is
+    // missing/misconfigured — turning a config gap into a crash-loop
+    // (the orchestrator kills the "unhealthy" container). Liveness must
+    // reflect "is the process up", not "is every dependency wired".
+    '/((?!_next/static|_next/image|favicon.ico|api/health|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }

@@ -46,7 +46,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
-    PORT=3000 \
+    PORT=3009 \
     HOSTNAME=0.0.0.0
 
 # Run as an unprivileged user.
@@ -61,14 +61,16 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 USER nextjs
-EXPOSE 3000
+EXPOSE 3009
 
 # Liveness probe — hits the dependency-free /api/health route. busybox
 # wget ships in the base image; --spider does a HEAD-style fetch and
 # exits non-zero on any non-2xx, which Docker/EasyPanel reads as
-# unhealthy.
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/api/health || exit 1
+# unhealthy. Shell form so ${PORT} expands — the probe always follows
+# whatever port the server actually binds to (override PORT and it
+# still works, no rebuild of this line needed).
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider "http://127.0.0.1:${PORT}/api/health" || exit 1
 
 # server.js is emitted at the root of the standalone bundle and honours
 # PORT / HOSTNAME. No `next start` needed.
