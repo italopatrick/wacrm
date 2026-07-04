@@ -14,6 +14,9 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Vendored minified opus-recorder encoder worker (served statically).
     "public/opus/**",
+    // ruflo/claude-flow tooling helpers (gitignored; not product source).
+    ".claude/**",
+    ".claude-flow/**",
   ]),
 ]);
 
