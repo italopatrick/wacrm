@@ -55,3 +55,10 @@ next-env.d.ts
 .swarm/
 ruvector.db
 memory/claude-flow-data.json
+
+# vim swap files
+*.swp
+
+# ruflo / claude-flow tooling (not part of the product repo)
+.claude/
+.claude-flow/
