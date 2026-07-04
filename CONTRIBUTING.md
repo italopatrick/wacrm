@@ -56,9 +56,8 @@ local / other), and logs will get to a fix fastest.
 
 ## Reporting security issues
 
-**Do not file security issues publicly.** Report them privately via
-GitHub's [Security advisories](https://github.com/ulabapps/ulabchat-frontend/security/advisories/new)
-(Security tab → Report a vulnerability).
+**Do not file security issues publicly.** Report them privately to the
+maintainers (a ulabapps org owner) — do not open a public issue or PR.
 
 ## Upstream pull requests
 
