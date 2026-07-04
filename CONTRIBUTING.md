@@ -56,15 +56,16 @@ local / other), and logs will get to a fix fastest.
 
 ## Reporting security issues
 
-**Do not file security issues publicly.** Follow the private flow in
-[SECURITY.md](./.github/SECURITY.md).
+**Do not file security issues publicly.** Report them privately via
+GitHub's [Security advisories](https://github.com/ulabapps/ulabchat-frontend/security/advisories/new)
+(Security tab → Report a vulnerability).
 
 ## Upstream pull requests
 
 Not the primary flow, but welcome in specific cases:
 
-- **Security fixes** — always welcome, please follow SECURITY.md first
-  for disclosure.
+- **Security fixes** — always welcome, please report privately first
+  (see "Reporting security issues" above) for disclosure.
 - **Bug fixes** that match upstream intent (crash, correctness,
   documentation errors, typos) — land quickly.
 - **Small improvements** (accessibility, obvious UX nits) — usually
