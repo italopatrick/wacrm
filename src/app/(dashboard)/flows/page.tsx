@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from '@/lib/api/client';
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -181,7 +182,7 @@ export default function FlowsPage() {
     );
     if (!yes) return;
     try {
-      const res = await fetch(`/api/flows/${flow.id}`, { method: "DELETE" });
+      const res = await apiFetch(`/api/flows/${flow.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
       setFlows((prev) => prev.filter((f) => f.id !== flow.id));
       toast.success("Flow deleted.");

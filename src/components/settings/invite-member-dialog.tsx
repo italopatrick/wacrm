@@ -14,6 +14,7 @@
 // shouts this in copy.
 // ============================================================
 
+import { apiFetch } from '@/lib/api/client';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Copy, Loader2, MessageCircle, Sparkles } from 'lucide-react';
@@ -110,7 +111,7 @@ export function InviteMemberDialog({
     }
     setSubmitting(true);
     try {
-      const res = await fetch('/api/account/invitations', {
+      const res = await apiFetch('/api/account/invitations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

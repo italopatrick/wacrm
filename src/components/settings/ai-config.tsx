@@ -1,5 +1,6 @@
 'use client';
 
+import { apiFetch } from '@/lib/api/client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { Loader2, Sparkles, CheckCircle2, Trash2, Eye, EyeOff } from 'lucide-react';
@@ -74,7 +75,7 @@ export function AiConfig() {
   const fetchConfig = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/ai/config');
+      const res = await apiFetch('/api/ai/config');
       const data = await res.json();
       if (!res.ok) {
         toast.error(data.error ?? 'Failed to load AI configuration');
@@ -139,7 +140,7 @@ export function AiConfig() {
   const handleTest = async () => {
     setTesting(true);
     try {
-      const res = await fetch('/api/ai/test', {
+      const res = await apiFetch('/api/ai/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -169,7 +170,7 @@ export function AiConfig() {
     }
     setSaving(true);
     try {
-      const res = await fetch('/api/ai/config', {
+      const res = await apiFetch('/api/ai/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(buildBody()),
@@ -191,7 +192,7 @@ export function AiConfig() {
   const handleRemove = async () => {
     setRemoving(true);
     try {
-      const res = await fetch('/api/ai/config', { method: 'DELETE' });
+      const res = await apiFetch('/api/ai/config', { method: 'DELETE' });
       if (res.ok) {
         toast.success('AI configuration removed.');
         setConfigured(false);

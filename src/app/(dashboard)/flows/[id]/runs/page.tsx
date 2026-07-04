@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from '@/lib/api/client';
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -109,7 +110,7 @@ export default function FlowRunsPage() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`/api/flows/${params.id}/runs`);
+        const res = await apiFetch(`/api/flows/${params.id}/runs`);
         if (res.status === 404) {
           if (!cancelled) setNotFound(true);
           return;

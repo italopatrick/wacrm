@@ -1,5 +1,6 @@
 "use client"
 
+import { apiFetch } from '@/lib/api/client';
 import { use, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Loader2 } from "lucide-react"
@@ -25,7 +26,7 @@ export default function EditAutomationPage({
   useEffect(() => {
     let cancelled = false
     async function load() {
-      const res = await fetch(`/api/automations/${id}`)
+      const res = await apiFetch(`/api/automations/${id}`)
       if (!res.ok) {
         if (!cancelled) setError(`Failed to load (${res.status})`)
         return

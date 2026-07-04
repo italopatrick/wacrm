@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from '@/lib/api/client';
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
@@ -34,7 +35,7 @@ export default function FlowEditorPage() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`/api/flows/${params.id}`);
+        const res = await apiFetch(`/api/flows/${params.id}`);
         if (res.status === 404) {
           if (!cancelled) setNotFound(true);
           return;

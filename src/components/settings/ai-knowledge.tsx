@@ -1,5 +1,6 @@
 'use client';
 
+import { apiFetch } from '@/lib/api/client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { Loader2, Plus, Trash2, Pencil, RefreshCw, BookOpen } from 'lucide-react';
@@ -45,7 +46,7 @@ export function AiKnowledgeCard({
   const fetchDocs = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/ai/knowledge');
+      const res = await apiFetch('/api/ai/knowledge');
       const data = await res.json();
       if (res.ok) setDocs(data.documents ?? []);
       else toast.error(data.error ?? 'Failed to load knowledge base');
@@ -70,7 +71,7 @@ export function AiKnowledgeCard({
 
   const openEdit = async (id: string) => {
     try {
-      const res = await fetch(`/api/ai/knowledge/${id}`);
+      const res = await apiFetch(`/api/ai/knowledge/${id}`);
       const data = await res.json();
       if (!res.ok) {
         toast.error(data.error ?? 'Failed to open document');
@@ -125,7 +126,7 @@ export function AiKnowledgeCard({
 
   const remove = async (id: string) => {
     try {
-      const res = await fetch(`/api/ai/knowledge/${id}`, { method: 'DELETE' });
+      const res = await apiFetch(`/api/ai/knowledge/${id}`, { method: 'DELETE' });
       if (res.ok) {
         toast.success('Document removed.');
         setDocs((d) => d.filter((x) => x.id !== id));
@@ -141,7 +142,7 @@ export function AiKnowledgeCard({
   const reindex = async () => {
     setReindexing(true);
     try {
-      const res = await fetch('/api/ai/knowledge/reindex', { method: 'POST' });
+      const res = await apiFetch('/api/ai/knowledge/reindex', { method: 'POST' });
       const data = await res.json();
       if (res.ok && data.success) {
         toast.success(`Reindexed ${data.reindexed} document(s).`);

@@ -1,5 +1,6 @@
 "use client"
 
+import { apiFetch } from '@/lib/api/client';
 import {
   createContext,
   useContext,
@@ -635,12 +636,12 @@ export function AutomationBuilder({ initial }: { initial: BuilderInitial }) {
       }
 
       const res = isEditing
-        ? await fetch(`/api/automations/${initial.id}`, {
+        ? await apiFetch(`/api/automations/${initial.id}`, {
             method: "PATCH",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(payload),
           })
-        : await fetch(`/api/automations`, {
+        : await apiFetch(`/api/automations`, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(payload),

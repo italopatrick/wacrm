@@ -1,5 +1,6 @@
 'use client';
 
+import { apiFetch } from '@/lib/api/client';
 import { useEffect, useState } from 'react';
 import { Bot, Sparkles, Settings2 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -17,7 +18,7 @@ export default function AgentsPage() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch('/api/ai/config');
+        const res = await apiFetch('/api/ai/config');
         const data = await res.json().catch(() => ({}));
         if (!cancelled) setTab(data?.configured ? 'playground' : 'setup');
       } catch {

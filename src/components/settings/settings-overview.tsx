@@ -1,5 +1,6 @@
 'use client';
 
+import { apiFetch } from '@/lib/api/client';
 import { useEffect, useState, type ReactNode } from 'react';
 import { ChevronRight, Loader2 } from 'lucide-react';
 
@@ -60,9 +61,9 @@ export function SettingsOverview({
       setCountsLoading(true);
       const [membersRes, invitesRes, templatesTotal, templatesPending, tagsRes, fieldsRes] =
         await Promise.allSettled([
-          fetch('/api/account/members', { cache: 'no-store' }).then((r) => r.json()),
+          apiFetch('/api/account/members', { cache: 'no-store' }).then((r) => r.json()),
           canManageMembers
-            ? fetch('/api/account/invitations', { cache: 'no-store' }).then((r) =>
+            ? apiFetch('/api/account/invitations', { cache: 'no-store' }).then((r) =>
                 r.json(),
               )
             : Promise.resolve(null),
@@ -122,7 +123,7 @@ export function SettingsOverview({
           .select('phone_number_id')
           .eq('account_id', acctId)
           .maybeSingle(),
-        fetch('/api/whatsapp/config', { cache: 'no-store' }).then((r) => r.json()),
+        apiFetch('/api/whatsapp/config', { cache: 'no-store' }).then((r) => r.json()),
       ]);
       if (cancelled) return;
       setWhatsapp({

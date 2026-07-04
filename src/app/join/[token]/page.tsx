@@ -22,6 +22,7 @@
 // this page after email verification.
 // ============================================================
 
+import { apiFetch } from '@/lib/api/client';
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -117,7 +118,7 @@ export default function JoinPage() {
     setAuthedUserId(undefined);
     try {
       const [peekRes, authRes] = await Promise.all([
-        fetch(`/api/invitations/${encodeURIComponent(token)}/peek`, {
+        apiFetch(`/api/invitations/${encodeURIComponent(token)}/peek`, {
           cache: 'no-store',
         }),
         createClient().auth.getUser(),
@@ -142,7 +143,7 @@ export default function JoinPage() {
     (async () => {
       try {
         const [peekRes, authRes] = await Promise.all([
-          fetch(`/api/invitations/${encodeURIComponent(token)}/peek`, {
+          apiFetch(`/api/invitations/${encodeURIComponent(token)}/peek`, {
             cache: 'no-store',
           }),
           createClient().auth.getUser(),
