@@ -20,6 +20,7 @@ import {
   Loader2,
   Sparkles,
 } from "lucide-react";
+import { apiFetch } from "@/lib/api/client";
 import { Button } from "@/components/ui/button";
 import { GatedButton } from "@/components/ui/gated-button";
 import {
@@ -232,9 +233,8 @@ export function MessageComposer({
     if (drafting) return;
     setDrafting(true);
     try {
-      const res = await fetch("/api/ai/draft", {
+      const res = await apiFetch("/api/ai/draft", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ conversation_id: conversationId }),
       });
       const data = await res.json().catch(() => ({}));

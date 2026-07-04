@@ -18,8 +18,8 @@ opinions become yours.
 ```bash
 # 1. Fork on GitHub: https://github.com/ArnasDon/wacrm → Fork
 # 2. Clone your fork
-git clone https://github.com/<your-username>/wacrm.git
-cd wacrm
+git clone https://github.com/<your-username>/ulabchat.git
+cd ulabchat
 
 cp .env.local.example .env.local   # fill in Supabase + Meta creds
 npm install

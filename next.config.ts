@@ -57,7 +57,8 @@ const SECURITY_HEADERS = [
       "font-src 'self' data:",
       // Supabase REST + realtime (WSS). All Meta API calls happen
       // server-side, so graph.facebook.com does not belong here.
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
+      // Allow local Supabase (supabase start) in addition to cloud.
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co http://localhost:* ws://localhost:*",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -114,6 +115,15 @@ const nextConfig: NextConfig = {
    * they apply to every response regardless of which cache rule
    * matched.
    */
+  // In local dev (no nginx), proxy /api/* to the Go backend.
+  // In Docker, nginx intercepts /api/* before Next.js sees it, so this is a no-op.
+  async rewrites() {
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+    return [
+      { source: '/api/:path*', destination: `${apiBase}/:path*` },
+    ]
+  },
+
   async headers() {
     return [
       {

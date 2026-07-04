@@ -99,11 +99,10 @@ export function AiKnowledgeCard({
     setSaving(true);
     try {
       const isNew = editing === 'new';
-      const res = await fetch(
+      const res = await apiFetch(
         isNew ? '/api/ai/knowledge' : `/api/ai/knowledge/${editing}`,
         {
           method: isNew ? 'POST' : 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ title: title.trim(), content: content.trim() }),
         },
       );

@@ -256,7 +256,7 @@ function ResourcesProvider({ children }: { children: ReactNode }) {
     // deployments → pickers fall back to a raw agent-id input.
     void (async () => {
       try {
-        const res = await fetch("/api/account/members", { cache: "no-store" })
+        const res = await apiFetch("/api/account/members", { cache: "no-store" })
         if (!res.ok) return
         const json = (await res.json()) as { members?: AccountMember[] }
         if (!cancelled) setMembers(json.members ?? [])

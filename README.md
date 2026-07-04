@@ -1,4 +1,4 @@
-# wacrm — CRM Template for WhatsApp
+# ulabchat — CRM Template for WhatsApp
 
 > Self-hostable CRM template for WhatsApp® — shared inbox, contacts,
 > sales pipelines, broadcasts, and no-code automations. Fork it, brand
@@ -76,8 +76,8 @@ in an afternoon and make yours.
 
 ```bash
 # Fork on GitHub first: https://github.com/ArnasDon/wacrm → Fork
-git clone https://github.com/<your-username>/wacrm.git
-cd wacrm
+git clone https://github.com/<your-username>/ulabchat.git
+cd ulabchat
 npm install
 cp .env.local.example .env.local   # fill in Supabase + Meta creds
 npm run dev
@@ -99,7 +99,7 @@ Open <http://localhost:3000>. You'll be redirected to `/login` (or
   </a>
 </p>
 
-**wacrm is built to run on [Hostinger](https://www.hostinger.com/web-apps-hosting).**
+**ulabchat is built to run on [Hostinger](https://www.hostinger.com/web-apps-hosting).**
 It's the path we test, document, and recommend — and the fastest way
 to get a production-grade CRM live without owning a VPS or a
 Kubernetes cluster.
@@ -128,7 +128,7 @@ Kubernetes cluster.
 Full walkthrough with screenshots:
 **[wacrm.tech/docs/deployment-hostinger](https://wacrm.tech/docs/deployment-hostinger)**.
 
-> _Note: wacrm is MIT-licensed and runs anywhere Node.js does
+> _Note: ulabchat is MIT-licensed and runs anywhere Node.js does
 > (Vercel, Railway, your own VPS). Hostinger is recommended, not
 > required._
 

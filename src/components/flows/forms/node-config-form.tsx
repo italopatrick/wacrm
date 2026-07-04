@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+import { apiFetch } from "@/lib/api/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -833,7 +834,7 @@ function useUserTags(): UserTag[] {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/api/tags").catch(() => null);
+        const res = await apiFetch("/api/tags").catch(() => null);
         if (!res || !res.ok) return;
         const json = (await res.json()) as { tags?: UserTag[] };
         if (!cancelled) setTags(json.tags ?? []);

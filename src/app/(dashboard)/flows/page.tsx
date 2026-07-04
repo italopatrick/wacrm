@@ -97,8 +97,8 @@ export default function FlowsPage() {
     (async () => {
       try {
         const [flowsRes, tmplRes] = await Promise.all([
-          fetch("/api/flows"),
-          fetch("/api/flows/templates"),
+          apiFetch("/api/flows"),
+          apiFetch("/api/flows/templates"),
         ]);
         if (!flowsRes.ok) {
           throw new Error(`Failed to load flows: ${flowsRes.status}`);
@@ -131,9 +131,8 @@ export default function FlowsPage() {
     if (!newName.trim()) return;
     setCreating(true);
     try {
-      const res = await fetch("/api/flows", {
+      const res = await apiFetch("/api/flows", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: newName.trim(),
           trigger_type: "keyword",
@@ -156,9 +155,8 @@ export default function FlowsPage() {
   async function handleUseTemplate(slug: string) {
     setCreating(true);
     try {
-      const res = await fetch("/api/flows", {
+      const res = await apiFetch("/api/flows", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ template_slug: slug }),
       });
       if (!res.ok) {
