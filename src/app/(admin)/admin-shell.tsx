@@ -50,11 +50,26 @@ function AdminShellInner({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-background">
       <header className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-6">
-        <Link href="/admin/companies" className="flex items-center gap-2">
-          <Building2 className="h-5 w-5 text-primary" />
-          <span className="font-semibold">Super owner</span>
-          <span className="text-muted-foreground">· Stores</span>
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/admin/companies" className="flex items-center gap-2">
+            <Building2 className="h-5 w-5 text-primary" />
+            <span className="font-semibold">Super owner</span>
+          </Link>
+          <nav className="flex items-center gap-4 text-sm">
+            <Link
+              href="/admin/companies"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Stores
+            </Link>
+            <Link
+              href="/admin/super-owners"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Super owners
+            </Link>
+          </nav>
+        </div>
         <Button
           variant="ghost"
           size="sm"

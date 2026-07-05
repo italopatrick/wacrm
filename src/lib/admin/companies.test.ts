@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { interpretCreateResponse } from "./companies";
+import {
+  interpretCreateResponse,
+  interpretGrantResponse,
+  interpretRevokeResponse,
+} from "./companies";
 
 describe("interpretCreateResponse", () => {
   it("maps 201 to ok with the company", () => {
@@ -44,5 +48,37 @@ describe("interpretCreateResponse", () => {
   it("maps 500 with no body to a generic error", () => {
     const r = interpretCreateResponse(500, null);
     expect(r.kind).toBe("error");
+  });
+});
+
+describe("interpretGrantResponse", () => {
+  it("maps 201 to ok with the user id", () => {
+    expect(interpretGrantResponse(201, { user_id: "u1" })).toEqual({
+      kind: "ok",
+      userId: "u1",
+    });
+  });
+  it("maps 404 to notFound with the server message", () => {
+    const r = interpretGrantResponse(404, { error: "No user with that email." });
+    expect(r).toEqual({ kind: "notFound", message: "No user with that email." });
+  });
+  it("maps other statuses to error", () => {
+    expect(interpretGrantResponse(403, { error: "Forbidden" }).kind).toBe("error");
+  });
+});
+
+describe("interpretRevokeResponse", () => {
+  it("maps 200 to ok", () => {
+    expect(interpretRevokeResponse(200, { user_id: "u1" })).toEqual({ kind: "ok" });
+  });
+  it("maps 409 to lastOwner", () => {
+    const r = interpretRevokeResponse(409, { error: "Cannot remove the last super owner" });
+    expect(r).toEqual({
+      kind: "lastOwner",
+      message: "Cannot remove the last super owner",
+    });
+  });
+  it("maps other statuses to error", () => {
+    expect(interpretRevokeResponse(500, null).kind).toBe("error");
   });
 });

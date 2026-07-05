@@ -14,6 +14,7 @@ import { apiFetch } from "@/lib/api/client";
 export interface CompanySummary {
   id: string;
   name: string;
+  status: string;
   created_at: string;
   member_count: number;
   owner: { user_id: string; full_name: string; email: string | null };
@@ -28,6 +29,7 @@ export interface CompanyMember {
 export interface CompanyDetail {
   id: string;
   name: string;
+  status: string;
   created_at: string;
   owner: { user_id: string; full_name: string; email: string | null };
   members: CompanyMember[];
@@ -119,4 +121,121 @@ export async function createCompany(
   });
   const payload = await res.json().catch(() => ({}));
   return interpretCreateResponse(res.status, payload);
+}
+
+// ============================================================
+// Phase 2 — store lifecycle + super_owner administration
+// ============================================================
+
+/** POST /api/admin/companies/{id}/suspend — throws on non-OK. */
+export async function suspendCompany(id: string): Promise<void> {
+  const res = await apiFetch(
+    `/api/admin/companies/${encodeURIComponent(id)}/suspend`,
+    { method: "POST" },
+  );
+  if (!res.ok) throw new Error("Failed to suspend store");
+}
+
+/** POST /api/admin/companies/{id}/reactivate — throws on non-OK. */
+export async function reactivateCompany(id: string): Promise<void> {
+  const res = await apiFetch(
+    `/api/admin/companies/${encodeURIComponent(id)}/reactivate`,
+    { method: "POST" },
+  );
+  if (!res.ok) throw new Error("Failed to reactivate store");
+}
+
+/** A super_owner row (GET /api/admin/super-owners). */
+export interface SuperOwner {
+  user_id: string;
+  full_name: string | null;
+  email: string | null;
+  granted_at: string;
+}
+
+/** GET /api/admin/super-owners — throws on non-OK. */
+export async function listSuperOwners(): Promise<SuperOwner[]> {
+  const res = await apiFetch("/api/admin/super-owners");
+  if (!res.ok) throw new Error("Failed to load super owners");
+  const data = (await res.json()) as { superOwners: SuperOwner[] };
+  return data.superOwners ?? [];
+}
+
+export type GrantResult =
+  | { kind: "ok"; userId: string }
+  | { kind: "notFound"; message: string }
+  | { kind: "error"; message: string };
+
+/** Maps a grant HTTP response to a GrantResult. Pure + unit-tested. */
+export function interpretGrantResponse(
+  status: number,
+  payload: unknown,
+): GrantResult {
+  const body = (payload ?? {}) as Record<string, unknown>;
+  if (status === 201) {
+    return { kind: "ok", userId: String(body.user_id ?? "") };
+  }
+  if (status === 404) {
+    return {
+      kind: "notFound",
+      message:
+        typeof body.error === "string"
+          ? body.error
+          : "No user with that email. They must sign in once first.",
+    };
+  }
+  return {
+    kind: "error",
+    message:
+      typeof body.error === "string" ? body.error : "Could not grant super owner",
+  };
+}
+
+/** POST /api/admin/super-owners { email } — never throws on 4xx. */
+export async function grantSuperOwner(email: string): Promise<GrantResult> {
+  const res = await apiFetch("/api/admin/super-owners", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  const payload = await res.json().catch(() => ({}));
+  return interpretGrantResponse(res.status, payload);
+}
+
+export type RevokeResult =
+  | { kind: "ok" }
+  | { kind: "lastOwner"; message: string }
+  | { kind: "error"; message: string };
+
+/** Maps a revoke HTTP response to a RevokeResult. Pure + unit-tested. */
+export function interpretRevokeResponse(
+  status: number,
+  payload: unknown,
+): RevokeResult {
+  const body = (payload ?? {}) as Record<string, unknown>;
+  if (status === 200) return { kind: "ok" };
+  if (status === 409) {
+    return {
+      kind: "lastOwner",
+      message:
+        typeof body.error === "string"
+          ? body.error
+          : "Cannot remove the last super owner",
+    };
+  }
+  return {
+    kind: "error",
+    message:
+      typeof body.error === "string" ? body.error : "Could not revoke super owner",
+  };
+}
+
+/** DELETE /api/admin/super-owners/{userId} — never throws on 4xx. */
+export async function revokeSuperOwner(userId: string): Promise<RevokeResult> {
+  const res = await apiFetch(
+    `/api/admin/super-owners/${encodeURIComponent(userId)}`,
+    { method: "DELETE" },
+  );
+  const payload = await res.json().catch(() => ({}));
+  return interpretRevokeResponse(res.status, payload);
 }

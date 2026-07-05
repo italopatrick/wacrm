@@ -6,6 +6,7 @@ import { Plus } from "lucide-react";
 
 import { listCompanies, type CompanySummary } from "@/lib/admin/companies";
 import { buttonVariants } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -64,6 +65,7 @@ export default function CompaniesListPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead>Owner</TableHead>
                 <TableHead className="text-right">Members</TableHead>
                 <TableHead>Created</TableHead>
@@ -79,6 +81,16 @@ export default function CompaniesListPage() {
                     >
                       {c.name}
                     </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      variant={
+                        c.status === "suspended" ? "destructive" : "secondary"
+                      }
+                      className="capitalize"
+                    >
+                      {c.status}
+                    </Badge>
                   </TableCell>
                   <TableCell>
                     <span className="block">{c.owner.full_name}</span>
