@@ -91,6 +91,40 @@ function SignupPageInner() {
     setLoading(false);
   };
 
+  // Self-signup is disabled: accounts always belong to a store. The only
+  // way to create one is via an invitation (which carries `?invite=<token>`
+  // and later binds the user to the inviting store on redeem). Owners are
+  // provisioned by a super_owner. Without a token, refuse and point to login.
+  if (!inviteToken) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background px-4">
+        <Card className="w-full max-w-md border-border bg-card">
+          <CardHeader className="items-center text-center">
+            <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+              <UsersRound className="h-6 w-6 text-primary" />
+            </div>
+            <CardTitle className="text-xl text-foreground">
+              {t("inviteOnlyTitle")}
+            </CardTitle>
+            <CardDescription className="text-muted-foreground">
+              {t("inviteOnlyBody")}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/login">
+              <Button
+                variant="outline"
+                className="w-full border-border text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                {t("backToSignIn")}
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   if (success) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background px-4">

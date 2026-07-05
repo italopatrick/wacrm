@@ -43,7 +43,9 @@
       "errorTooShort": "A senha deve ter pelo menos 6 caracteres",
       "checkEmailTitle": "Verifique seu e-mail",
       "checkEmailBody": "Enviamos um link de confirmação para <highlight>{email}</highlight>. Verifique sua caixa de entrada e clique no link para confirmar sua conta.",
-      "backToSignIn": "Voltar para o login"
+      "backToSignIn": "Voltar para o login",
+      "inviteOnlyTitle": "Convite necessário",
+      "inviteOnlyBody": "As contas são criadas apenas por convite. Peça a um administrador da sua loja para convidá-lo e abra o link que ele enviar."
     },
     "forgotPassword": {
       "title": "Redefinir senha",

@@ -43,7 +43,9 @@
       "errorTooShort": "Password must be at least 6 characters",
       "checkEmailTitle": "Check your email",
       "checkEmailBody": "We've sent a confirmation link to <highlight>{email}</highlight>. Please check your inbox and click the link to verify your account.",
-      "backToSignIn": "Back to sign in"
+      "backToSignIn": "Back to sign in",
+      "inviteOnlyTitle": "Invitation required",
+      "inviteOnlyBody": "Accounts are created by invitation only. Ask an administrator of your store to invite you, then open the link they send."
     },
     "forgotPassword": {
       "title": "Reset password",
