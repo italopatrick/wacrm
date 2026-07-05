@@ -6,7 +6,7 @@ produção.** As tasks abaixo são para o fluxo de dev / futura preparação de
 deploy. Marque conforme concluir.
 
 > **Legenda:** 🔴 necessário para a feature rodar · 🟡 recomendado
-> · 🟢 opcional/follow-up · ⚙️ processo (merge/branch)
+> · 🟢 opcional/follow-up
 
 ---
 
@@ -30,7 +30,8 @@ deploy. Marque conforme concluir.
 - [x] **Local:** migrações 034+035 aplicadas, 1º `super_owner` semeado,
   teste manual OK.
 
-Commits backend: `2067fe2`, `df4c43e`, `572024b`, `8849dc8`, `0997f65`.
+Commits backend: `2067fe2`, `df4c43e`, `572024b`, `8849dc8`, `0997f65`,
+`f7f45c7`.
 Commits frontend: `621d486`, `64e057d`, `1cbb817`, `19540f1`, `6318e91`,
 `eaeaa58`, `657a3b5`, `3a49b15`.
 
@@ -60,49 +61,45 @@ novo ambiente de dev** (outra máquina, `supabase db reset`, banco novo):
   para testar). Se quiser envio real: SMTP habilitado + **redirect allowlist**
   incluindo `.../auth/callback` + **Site URL** correta.
 
-## 2. ⚙️ Processo (merge/PR)
-
-- [ ] Abrir PRs `developer → main` (você faz manualmente):
-  - Backend: `https://github.com/ulabapps/ulabchat-backend/pull/new/developer`
-  - Frontend: `https://github.com/ulabapps/ulabchat-frontend/pull/new/developer`
-- [ ] Revisar o diff (atenção especial aos pontos de auth: `AuthSession`
-  agora nega store suspenso; `FindActiveKeyByHash` filtra store suspenso).
-- [ ] Quando houver deploy: lembrar que a migração deve ir **antes** do backend.
-
-## 3. 🟡 Validação antes do merge
+## 2. 🟡 Validação
 
 - [x] Testes de integração rodados no dev local (3 passando):
   ```
   cd ulabchat-backend && make test-integration     # requer `supabase start`
   ```
-- [ ] `cd ulabchat-backend && make test lint vet`.
-- [ ] `cd ulabchat && npm run build && npm test`
+- [x] `cd ulabchat-backend`: `go vet` + `go test ./...` verdes
+  (`golangci-lint` não instalado no ambiente — pular ou instalar a ferramenta).
+- [x] `cd ulabchat && npm run build && npm test` verdes
   (obs.: 2 falhas pré-existentes em `date-utils.test.ts` são de timezone,
   não relacionadas a esta feature).
-- [ ] Smoke manual completo no dev: provisionar store → e-mail (Inbucket) →
-  definir senha → login → suspender/reativar → grant/revoke super_owner.
+- [ ] Smoke manual completo no dev (depende de você): provisionar store →
+  e-mail (Inbucket) → definir senha → login → suspender/reativar →
+  grant/revoke super_owner.
 
-## 4. 🟢 Follow-ups / dívidas conhecidas
+## 3. 🟢 Follow-ups / dívidas conhecidas
 
 - [ ] **Grant de super_owner por email depende de profile existente.**
   `GetUserIdByEmail` lê `profiles`; um usuário que nunca logou não é
   encontrado (retorna 404 "must sign in once first"). Se precisar granting
   a quem nunca entrou, resolver via GoTrue Admin API (dependente de versão).
-- [ ] **Roteamento pós-login de super_owner sem store (ADR-F1).** Hoje o
-  middleware manda usuário logado em `/login` para `/dashboard`
-  (account-scoped). Um super_owner **com** loja já tem atalho para o console
-  (card "Platform admin" no perfil). Ainda em aberto: um super_owner **sem**
-  loja — considerar redirecionar `/dashboard → /admin` quando `isSuperOwner`
-  e sem `accountId`.
+- [x] **Roteamento pós-login de super_owner sem store (ADR-F1).** Feito: o
+  `DashboardShell` redireciona `/dashboard → /admin/companies` quando o
+  usuário é `super_owner` e não tem `accountId`. Super_owner **com** loja
+  usa o dashboard normal + atalho "Platform admin" no perfil.
+- [x] **Rate-limit** nas mutações admin (`POST /admin/companies`, suspend/
+  reactivate, grant/revoke): middleware `RateLimitAdmin`, 30/min por
+  super_owner. Leituras (GET) sem limite.
 - [ ] **i18n do console `/admin`.** Strings hardcoded em inglês (consistente
-  com `invite-member-dialog`). Traduzir se o console for exposto a não-devs.
-- [ ] **Rate-limit** em `POST /admin/companies` e `POST /admin/super-owners`.
+  com `invite-member-dialog`). *Feature própria — traduzir se o console for
+  exposto a não-devs.* Não feito nesta rodada.
 - [ ] **Audit log** de ações de plataforma (criar/suspender store, grant/revoke).
+  *Feature própria (nova tabela + writes por ação) — fora do escopo desta
+  rodada; abrir quando priorizado.*
 - [ ] **UX de suspensão no dashboard:** hoje um membro de store suspenso
   recebe 403 seco ("This store is suspended"); considerar uma tela dedicada
   no frontend em vez do erro genérico.
 
-## 5. 📌 Runbook rápido (dev local)
+## 4. 📌 Runbook rápido (dev local)
 
 ```bash
 # aplicar migrações no Supabase local

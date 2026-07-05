@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AuthProvider, useAuth } from "@/hooks/use-auth";
-import { SuperOwnerProvider } from "@/hooks/use-super-owner";
+import { SuperOwnerProvider, useSuperOwner } from "@/hooks/use-super-owner";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { PresenceHeartbeat } from "@/components/presence/presence-heartbeat";
@@ -13,7 +13,8 @@ import { PresenceHeartbeat } from "@/components/presence/presence-heartbeat";
 // client components can't export Next's metadata object.
 
 function DashboardShellInner({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
+  const { user, loading, profileLoading, accountId } = useAuth();
+  const { isSuperOwner, loading: soLoading } = useSuperOwner();
   const router = useRouter();
 
   // Sidebar drawer state — only used on mobile. On lg+ the sidebar is
@@ -24,8 +25,31 @@ function DashboardShellInner({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!loading && !user) {
       router.push("/login");
+      return;
     }
-  }, [user, loading, router]);
+    // ADR-F1: a super_owner with no store has no usable account-scoped
+    // dashboard — send them to the platform console instead. Only applies
+    // once we know the profile resolved (accountId settled) AND the
+    // super_owner check settled, so we never bounce a normal user.
+    if (
+      !loading &&
+      user &&
+      !profileLoading &&
+      !accountId &&
+      !soLoading &&
+      isSuperOwner
+    ) {
+      router.replace("/admin/companies");
+    }
+  }, [
+    user,
+    loading,
+    profileLoading,
+    accountId,
+    isSuperOwner,
+    soLoading,
+    router,
+  ]);
 
   if (loading) {
     return (
