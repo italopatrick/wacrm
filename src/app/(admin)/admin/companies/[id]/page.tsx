@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ArrowLeft, Loader2, Mail } from "lucide-react";
+import { ArrowLeft, Loader2, Mail, LogIn } from "lucide-react";
 
 import {
   getCompany,
@@ -13,6 +13,7 @@ import {
   resendInvite,
   type CompanyDetail,
 } from "@/lib/admin/companies";
+import { setActing } from "@/lib/admin/acting";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -33,6 +34,7 @@ import {
 
 export default function CompanyDetailPage() {
   const params = useParams<{ id: string }>();
+  const router = useRouter();
   const id = params.id;
   const [company, setCompany] = useState<CompanyDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -117,14 +119,26 @@ export default function CompanyDetailPage() {
                 Created {new Date(company.created_at).toLocaleDateString()}
               </p>
             </div>
-            <Button
-              variant={suspended ? "default" : "destructive"}
-              onClick={toggleStatus}
-              disabled={working}
-            >
-              {working && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {suspended ? "Reactivate" : "Suspend"}
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setActing({ id: company.id, name: company.name });
+                  router.push("/dashboard");
+                }}
+              >
+                <LogIn className="mr-2 h-4 w-4" />
+                Manage as store
+              </Button>
+              <Button
+                variant={suspended ? "default" : "destructive"}
+                onClick={toggleStatus}
+                disabled={working}
+              >
+                {working && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {suspended ? "Reactivate" : "Suspend"}
+              </Button>
+            </div>
           </div>
 
           <Card>

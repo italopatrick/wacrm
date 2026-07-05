@@ -1,3 +1,4 @@
+import { getActing } from '@/lib/admin/acting'
 import { createClient } from '@/lib/supabase/client'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? ''
@@ -33,6 +34,14 @@ export async function apiFetch(
   }
   if (!headers.has('Content-Type') && init.body) {
     headers.set('Content-Type', 'application/json')
+  }
+
+  // Feature B: when a super_owner is acting inside a company, scope backend
+  // dashboard routes to it. Harmless on other routes (the backend honors the
+  // header only for verified super_owners on account-scoped routes).
+  const acting = getActing()
+  if (acting) {
+    headers.set('X-Act-As-Account', acting.id)
   }
 
   // Direct mode: strip /api prefix, prepend API_BASE (points to Go port).
