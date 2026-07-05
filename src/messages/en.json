@@ -110,7 +110,7 @@
   },
   "settings": {
     "title": "Settings",
-    "subtitle": "Everything in one place — your account and your workspace. Pick a section to manage it.",
+    "subtitle": "Everything in one place — your account and your store. Pick a section to manage it.",
     "sections": {
       "overview": "Overview",
       "profile": "Your profile",
@@ -127,7 +127,7 @@
       "ariaLabel": "Settings sections",
       "group": {
         "account": "Account",
-        "workspace": "Workspace"
+        "workspace": "Store"
       }
     },
     "security": {

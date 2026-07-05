@@ -1,12 +1,22 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { toast } from 'sonner';
-import { Loader2, Upload, Trash2, Mail, CircleAlert } from 'lucide-react';
+import {
+  Loader2,
+  Upload,
+  Trash2,
+  Mail,
+  CircleAlert,
+  ShieldCheck,
+  ArrowRight,
+} from 'lucide-react';
 
 import { createClient } from '@/lib/supabase/client';
 import { useAuth } from '@/hooks/use-auth';
-import { Button } from '@/components/ui/button';
+import { RequireSuperOwner } from '@/components/auth/require-super-owner';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -348,6 +358,34 @@ export function ProfileForm() {
           </Button>
         </div>
       </form>
+
+      {/* Platform admin access — only rendered for super_owners. The gate
+          fails closed (nothing shown) for everyone else; the /admin console
+          itself is independently protected server-side. */}
+      <RequireSuperOwner>
+        <Card className="mt-4 border-primary/30">
+          <CardContent className="flex flex-wrap items-center justify-between gap-4 py-4">
+            <div className="flex items-center gap-3">
+              <div className="flex size-9 items-center justify-center rounded-lg bg-primary/10">
+                <ShieldCheck className="size-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">Platform admin</p>
+                <p className="text-sm text-muted-foreground">
+                  You are a super owner. Manage stores and platform admins.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/admin/companies"
+              className={buttonVariants({ variant: 'outline' })}
+            >
+              Open admin
+              <ArrowRight className="ml-2 size-4" />
+            </Link>
+          </CardContent>
+        </Card>
+      </RequireSuperOwner>
     </section>
   );
 }

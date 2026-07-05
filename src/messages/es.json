@@ -110,7 +110,7 @@
   },
   "settings": {
     "title": "Configuración",
-    "subtitle": "Todo en un solo lugar: tu cuenta y tu espacio de trabajo. Elige una sección para gestionarla.",
+    "subtitle": "Todo en un solo lugar: tu cuenta y tu tienda. Elige una sección para gestionarla.",
     "sections": {
       "overview": "Resumen",
       "profile": "Tu perfil",
@@ -127,7 +127,7 @@
       "ariaLabel": "Secciones de configuración",
       "group": {
         "account": "Cuenta",
-        "workspace": "Espacio de trabajo"
+        "workspace": "Tienda"
       }
     },
     "security": {
