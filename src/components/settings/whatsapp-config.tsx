@@ -68,6 +68,12 @@ export function WhatsAppConfig() {
   const [verifyToken, setVerifyToken] = useState('');
   const [pin, setPin] = useState('');
   const [tokenEdited, setTokenEdited] = useState(false);
+  // Per-store Meta App (migration 036): each store connects its own App,
+  // so it has a distinct webhook URL, App ID, and App Secret.
+  const [webhookToken, setWebhookToken] = useState('');
+  const [appId, setAppId] = useState('');
+  const [appSecret, setAppSecret] = useState('');
+  const [hasAppSecret, setHasAppSecret] = useState(false);
 
   // True once /register has succeeded on Meta's side (timestamp set
   // in the row). When false, the saved config is metadata-only and
@@ -88,9 +94,14 @@ export function WhatsAppConfig() {
   const [registrationProbe, setRegistrationProbe] =
     useState<RegistrationProbe | null>(null);
 
+  // Per-store callback URL — carries this store's webhook_token so each
+  // store's own Meta App points at a distinct URL. Falls back to the shared
+  // path until the token loads.
   const webhookUrl =
     typeof window !== 'undefined'
-      ? `${window.location.origin}/api/whatsapp/webhook`
+      ? webhookToken
+        ? `${window.location.origin}/api/whatsapp/webhook/${webhookToken}`
+        : `${window.location.origin}/api/whatsapp/webhook`
       : '';
 
   const fetchConfig = useCallback(async (acctId: string) => {
@@ -112,6 +123,14 @@ export function WhatsAppConfig() {
         console.error('Failed to load config row:', error);
       }
 
+      // Per-store webhook token lives on `accounts` (migration 036).
+      const { data: acct } = await supabase
+        .from('accounts')
+        .select('webhook_token')
+        .eq('id', acctId)
+        .maybeSingle();
+      setWebhookToken(acct?.webhook_token || '');
+
       if (data) {
         setConfig(data);
         setPhoneNumberId(data.phone_number_id || '');
@@ -120,6 +139,9 @@ export function WhatsAppConfig() {
         setVerifyToken('');
         setPin('');
         setTokenEdited(false);
+        setAppId(data.app_id || '');
+        setHasAppSecret(Boolean(data.app_secret));
+        setAppSecret('');
       } else {
         setConfig(null);
         setPhoneNumberId('');
@@ -128,6 +150,9 @@ export function WhatsAppConfig() {
         setVerifyToken('');
         setPin('');
         setTokenEdited(false);
+        setAppId('');
+        setHasAppSecret(false);
+        setAppSecret('');
       }
       // Clear any stale probe result when reloading the row.
       setRegistrationProbe(null);
@@ -206,6 +231,10 @@ export function WhatsAppConfig() {
         // requires it on first save or when changing numbers; for a
         // simple token rotation, leaving it blank skips re-register.
         pin: pin.trim() || null,
+        // Per-store Meta App (migration 036). app_secret is only sent when
+        // (re)typed — the server preserves the stored one when blank.
+        app_id: appId.trim() || null,
+        app_secret: appSecret.trim() || undefined,
       };
 
       if (tokenEdited && accessToken !== MASKED_TOKEN && accessToken.trim()) {
@@ -631,6 +660,34 @@ export function WhatsAppConfig() {
               />
               <p className="text-xs text-muted-foreground">
                 A custom string you create. Must match the token you set in Meta webhook settings.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-muted-foreground">Meta App ID</Label>
+              <Input
+                placeholder="e.g. 1234567890123456"
+                value={appId}
+                onChange={(e) => setAppId(e.target.value)}
+                className="bg-muted border-border text-foreground placeholder:text-muted-foreground"
+              />
+              <p className="text-xs text-muted-foreground">
+                Your store&rsquo;s own Meta App ID (App Dashboard → Settings → Basic).
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-muted-foreground">Meta App Secret</Label>
+              <Input
+                type="password"
+                placeholder={hasAppSecret ? '•••••••• (leave blank to keep)' : 'Enter your App Secret'}
+                value={appSecret}
+                onChange={(e) => setAppSecret(e.target.value)}
+                className="bg-muted border-border text-foreground placeholder:text-muted-foreground"
+              />
+              <p className="text-xs text-muted-foreground">
+                Used to verify webhook signatures for this store&rsquo;s App. Stored encrypted;
+                {hasAppSecret ? ' leave blank to keep the current one.' : ' required to receive messages from your own App.'}
               </p>
             </div>
 
