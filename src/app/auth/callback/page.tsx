@@ -18,12 +18,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { createClient } from "@/lib/supabase/client";
-
-// Only allow same-origin relative redirects (no open redirect).
-function safeNext(raw: string | null): string {
-  if (raw && raw.startsWith("/") && !raw.startsWith("//")) return raw;
-  return "/dashboard";
-}
+import { safeNext } from "@/lib/auth/safe-next";
 
 export default function AuthCallbackPage() {
   const t = useTranslations("auth.resetPassword");

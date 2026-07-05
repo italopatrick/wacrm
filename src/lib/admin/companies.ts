@@ -145,6 +145,15 @@ export async function reactivateCompany(id: string): Promise<void> {
   if (!res.ok) throw new Error("Failed to reactivate store");
 }
 
+/** POST /api/admin/companies/{id}/resend-invite — throws on non-OK. */
+export async function resendInvite(id: string): Promise<void> {
+  const res = await apiFetch(
+    `/api/admin/companies/${encodeURIComponent(id)}/resend-invite`,
+    { method: "POST" },
+  );
+  if (!res.ok) throw new Error("Failed to resend invite");
+}
+
 /** A super_owner row (GET /api/admin/super-owners). */
 export interface SuperOwner {
   user_id: string;

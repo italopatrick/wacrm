@@ -4,12 +4,13 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Mail } from "lucide-react";
 
 import {
   getCompany,
   suspendCompany,
   reactivateCompany,
+  resendInvite,
   type CompanyDetail,
 } from "@/lib/admin/companies";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -36,6 +37,7 @@ export default function CompanyDetailPage() {
   const [company, setCompany] = useState<CompanyDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [working, setWorking] = useState(false);
+  const [resending, setResending] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -67,6 +69,19 @@ export default function CompanyDetailPage() {
       toast.error("Could not update the store. Try again?");
     } finally {
       setWorking(false);
+    }
+  }
+
+  async function handleResendInvite() {
+    if (!company) return;
+    setResending(true);
+    try {
+      await resendInvite(company.id);
+      toast.success("Invite email sent");
+    } catch {
+      toast.error("Could not send the invite. Try again?");
+    } finally {
+      setResending(false);
     }
   }
 
@@ -119,11 +134,28 @@ export default function CompanyDetailPage() {
                 The first user, created when the store was provisioned.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="font-medium">{company.owner.full_name}</p>
-              <p className="text-sm text-muted-foreground">
-                {company.owner.email ?? "—"}
-              </p>
+            <CardContent className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-medium">{company.owner.full_name}</p>
+                <p className="text-sm text-muted-foreground">
+                  {company.owner.email ?? "—"}
+                </p>
+              </div>
+              {company.owner.email && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleResendInvite}
+                  disabled={resending}
+                >
+                  {resending ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Mail className="mr-2 h-4 w-4" />
+                  )}
+                  Resend invite
+                </Button>
+              )}
             </CardContent>
           </Card>
 
