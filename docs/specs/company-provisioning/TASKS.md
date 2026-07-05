@@ -1,10 +1,12 @@
 # TASKS — super_owner / store provisioning
 
-Próximos passos para levar a feature de `super_owner` (provisionamento de
-stores/tenants) do estado atual até produção. Marque conforme concluir.
+Próximos passos para a feature de `super_owner` (provisionamento de
+stores/tenants). **O projeto está em desenvolvimento — não há ambiente de
+produção.** As tasks abaixo são para o fluxo de dev / futura preparação de
+deploy. Marque conforme concluir.
 
-> **Legenda:** 🔴 bloqueia produção · 🟡 recomendado · 🟢 opcional/follow-up
-> · ⚙️ processo/deploy
+> **Legenda:** 🔴 necessário para a feature rodar · 🟡 recomendado
+> · 🟢 opcional/follow-up · ⚙️ processo (merge/branch)
 
 ---
 
@@ -26,28 +28,29 @@ Commits frontend: `621d486`, `64e057d`, `1cbb817`.
 
 ---
 
-## 1. 🔴 Bloqueantes para produção
+## 1. 🔴 Necessário para a feature rodar (por ambiente de dev)
 
-- [ ] **Aplicar migrações 034 + 035 no banco de produção.**
+Já feito no dev local atual (ver seção 0). **Refazer estes passos em cada
+novo ambiente de dev** (outra máquina, `supabase db reset`, banco novo):
+
+- [x] **Aplicar migrações 034 + 035** — feito no dev local.
   Sem elas o `GetMembership` quebra em **todo** request (`column a.status
   does not exist`) e `/admin` falha (sem `super_owners`).
-  - Supabase hospedado: `supabase link --project-ref <REF>` → `supabase db push`.
-  - **Rode a migração ANTES/junto do deploy do backend** (evita a janela de erro).
+  - Local: `cd ulabchat-backend && supabase migration up`.
+  - **Aplicar a migração antes de subir o backend novo** (evita a janela de erro).
 
-- [ ] **Semear o 1º `super_owner` em produção** (manual — sem endpoint, por design).
+- [x] **Semear o 1º `super_owner`** — feito no dev local
+  (`nicolas98aguiar@gmail.com`). Manual, sem endpoint (por design).
   ```sql
   INSERT INTO super_owners (user_id, granted_by)
   VALUES ('<uuid-de-um-auth.users>', NULL);
   ```
   Descobrir o `user_id`: `SELECT id, email FROM auth.users WHERE email = '<email>';`
 
-- [ ] **Config do Supabase (prod) para o convite/reset funcionar:**
-  - [ ] SMTP habilitado (senão os e-mails de convite/reset não saem).
-  - [ ] **Redirect allowlist** incluindo `.../auth/callback` (o `redirect_to`
-    do convite aponta para lá) e a **Site URL** correta.
-
-- [ ] **Deploy conjunto backend + frontend.** O front chama `/api/admin/*`
-  e o novo fluxo de auth; ambos precisam subir juntos com a migração aplicada.
+- [ ] **Config do Supabase para convite/reset (quando testar o e-mail real):**
+  no dev local o Supabase captura e-mails no **Inbucket** (nada a configurar
+  para testar). Se quiser envio real: SMTP habilitado + **redirect allowlist**
+  incluindo `.../auth/callback` + **Site URL** correta.
 
 ## 2. ⚙️ Processo (merge/PR)
 
@@ -56,11 +59,11 @@ Commits frontend: `621d486`, `64e057d`, `1cbb817`.
   - Frontend: `https://github.com/ulabapps/ulabchat-frontend/pull/new/developer`
 - [ ] Revisar o diff (atenção especial aos pontos de auth: `AuthSession`
   agora nega store suspenso; `FindActiveKeyByHash` filtra store suspenso).
-- [ ] Nota de release: destacar que a migração deve ir **antes** do backend.
+- [ ] Quando houver deploy: lembrar que a migração deve ir **antes** do backend.
 
 ## 3. 🟡 Validação antes do merge
 
-- [ ] Rodar os testes de integração num ambiente com Supabase de pé:
+- [x] Testes de integração rodados no dev local (3 passando):
   ```
   cd ulabchat-backend && make test-integration     # requer `supabase start`
   ```
@@ -68,8 +71,8 @@ Commits frontend: `621d486`, `64e057d`, `1cbb817`.
 - [ ] `cd ulabchat && npm run build && npm test`
   (obs.: 2 falhas pré-existentes em `date-utils.test.ts` são de timezone,
   não relacionadas a esta feature).
-- [ ] Smoke manual em staging: provisionar store → e-mail → definir senha →
-  login → suspender/reativar → grant/revoke super_owner.
+- [ ] Smoke manual completo no dev: provisionar store → e-mail (Inbucket) →
+  definir senha → login → suspender/reativar → grant/revoke super_owner.
 
 ## 4. 🟢 Follow-ups / dívidas conhecidas
 
@@ -90,7 +93,7 @@ Commits frontend: `621d486`, `64e057d`, `1cbb817`.
   recebe 403 seco ("This store is suspended"); considerar uma tela dedicada
   no frontend em vez do erro genérico.
 
-## 5. 📌 Runbook rápido (local)
+## 5. 📌 Runbook rápido (dev local)
 
 ```bash
 # aplicar migrações no Supabase local
