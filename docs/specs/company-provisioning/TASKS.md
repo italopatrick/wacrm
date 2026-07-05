@@ -18,13 +18,21 @@ deploy. Marque conforme concluir.
   (suspender/reativar, gestão de super_owners), fluxo de senha
   (`/auth/callback` + `/reset-password`).
 - [x] `make gen-sqlc` reprodutível (alias `account_role` corrigido).
+- [x] Testes de integração do backend (provisionamento, suspensão, grants)
+  rodando contra o Postgres local.
+- [x] **Signup invite-only:** `/signup` sem token mostra "convite necessário";
+  self-service de conta eliminado (contas sempre pertencem a uma loja).
+- [x] Fix `/admin` 404 (redirect da raiz `/admin` → `/admin/companies`).
+- [x] Rail de Configurações: grupo "Workspace" renomeado para **Loja/Store/Tienda**.
+- [x] Perfil: super_owner vê card **"Platform admin"** com link para `/admin`.
 - [x] Branch `developer` **pushed** nos dois repos (`ulabchat-backend`,
   `ulabchat-frontend`).
 - [x] **Local:** migrações 034+035 aplicadas, 1º `super_owner` semeado,
   teste manual OK.
 
 Commits backend: `2067fe2`, `df4c43e`, `572024b`, `8849dc8`, `0997f65`.
-Commits frontend: `621d486`, `64e057d`, `1cbb817`.
+Commits frontend: `621d486`, `64e057d`, `1cbb817`, `19540f1`, `6318e91`,
+`eaeaa58`, `657a3b5`, `3a49b15`.
 
 ---
 
@@ -82,9 +90,10 @@ novo ambiente de dev** (outra máquina, `supabase db reset`, banco novo):
   a quem nunca entrou, resolver via GoTrue Admin API (dependente de versão).
 - [ ] **Roteamento pós-login de super_owner sem store (ADR-F1).** Hoje o
   middleware manda usuário logado em `/login` para `/dashboard`
-  (account-scoped). Um super_owner sem store chega em `/admin` manualmente.
-  Opcional: redirecionar `/dashboard → /admin` quando `isSuperOwner` e sem
-  `accountId`.
+  (account-scoped). Um super_owner **com** loja já tem atalho para o console
+  (card "Platform admin" no perfil). Ainda em aberto: um super_owner **sem**
+  loja — considerar redirecionar `/dashboard → /admin` quando `isSuperOwner`
+  e sem `accountId`.
 - [ ] **i18n do console `/admin`.** Strings hardcoded em inglês (consistente
   com `invite-member-dialog`). Traduzir se o console for exposto a não-devs.
 - [ ] **Rate-limit** em `POST /admin/companies` e `POST /admin/super-owners`.
