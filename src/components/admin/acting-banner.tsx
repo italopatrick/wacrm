@@ -25,8 +25,8 @@ export function ActingBanner() {
       <div className="flex items-center gap-2">
         <ShieldAlert className="h-4 w-4 shrink-0" />
         <span>
-          Modo suporte — gerenciando <strong>{acting.name}</strong>. Apenas
-          operações via API respeitam este contexto.
+          Modo suporte — gerenciando <strong>{acting.name}</strong>. Ações via
+          backend afetam esta loja; edições diretas ficam bloqueadas.
         </span>
       </div>
       <Button
