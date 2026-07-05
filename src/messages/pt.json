@@ -54,6 +54,24 @@
       "checkEmailTitle": "Verifique seu e-mail",
       "checkEmailBody": "Enviamos um link de redefinição de senha para <highlight>{email}</highlight>. Verifique sua caixa de entrada.",
       "backToSignIn": "Voltar para o login"
+    },
+    "resetPassword": {
+      "verifying": "Verificando seu link…",
+      "title": "Defina uma nova senha",
+      "subtitle": "Escolha uma senha forte para sua conta.",
+      "password": "Nova senha",
+      "passwordPlaceholder": "Pelo menos 6 caracteres",
+      "confirmPassword": "Confirmar senha",
+      "confirmPasswordPlaceholder": "Repita sua senha",
+      "submit": "Atualizar senha",
+      "submitting": "Atualizando…",
+      "successTitle": "Senha atualizada",
+      "successBody": "Sua senha foi definida. Agora você pode entrar.",
+      "goToLogin": "Ir para o login",
+      "errorMismatch": "As senhas não coincidem",
+      "errorTooShort": "A senha deve ter pelo menos 6 caracteres",
+      "invalidLinkTitle": "Link expirado ou inválido",
+      "invalidLinkBody": "Este link de redefinição não é mais válido. Solicite um novo."
     }
   },
   "nav": {

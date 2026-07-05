@@ -54,6 +54,24 @@
       "checkEmailTitle": "Revisa tu correo",
       "checkEmailBody": "Enviamos un enlace para restablecer la contraseña a <highlight>{email}</highlight>. Revisa tu bandeja de entrada.",
       "backToSignIn": "Volver a iniciar sesión"
+    },
+    "resetPassword": {
+      "verifying": "Verificando tu enlace…",
+      "title": "Establece una nueva contraseña",
+      "subtitle": "Elige una contraseña segura para tu cuenta.",
+      "password": "Nueva contraseña",
+      "passwordPlaceholder": "Al menos 6 caracteres",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Repite tu contraseña",
+      "submit": "Actualizar contraseña",
+      "submitting": "Actualizando…",
+      "successTitle": "Contraseña actualizada",
+      "successBody": "Tu contraseña ha sido establecida. Ahora puedes iniciar sesión.",
+      "goToLogin": "Ir a iniciar sesión",
+      "errorMismatch": "Las contraseñas no coinciden",
+      "errorTooShort": "La contraseña debe tener al menos 6 caracteres",
+      "invalidLinkTitle": "Enlace caducado o no válido",
+      "invalidLinkBody": "Este enlace de restablecimiento ya no es válido. Solicita uno nuevo."
     }
   },
   "nav": {

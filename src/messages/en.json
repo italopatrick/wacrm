@@ -54,6 +54,24 @@
       "checkEmailTitle": "Check your email",
       "checkEmailBody": "We've sent a password reset link to <highlight>{email}</highlight>. Please check your inbox.",
       "backToSignIn": "Back to sign in"
+    },
+    "resetPassword": {
+      "verifying": "Verifying your link…",
+      "title": "Set a new password",
+      "subtitle": "Choose a strong password for your account.",
+      "password": "New password",
+      "passwordPlaceholder": "At least 6 characters",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Repeat your password",
+      "submit": "Update password",
+      "submitting": "Updating…",
+      "successTitle": "Password updated",
+      "successBody": "Your password has been set. You can now sign in.",
+      "goToLogin": "Go to sign in",
+      "errorMismatch": "Passwords do not match",
+      "errorTooShort": "Password must be at least 6 characters",
+      "invalidLinkTitle": "Link expired or invalid",
+      "invalidLinkBody": "This reset link is no longer valid. Request a new one."
     }
   },
   "nav": {
